@@ -7,7 +7,8 @@ const app = express();
 app.use(express.json());
 
 const allowedUrl = {
-  origin: ["http://localhost:3000","http://localhost:3001"],
+  // origin: ["http://localhost:3000","http://localhost:3001"],
+  origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
   method: ["POST","GET"], 
   // Credentials:true
 };

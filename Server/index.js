@@ -51,3 +51,5 @@ mongoose
 app.get("/", (req, res) => {
   res.send("backend is running");
 });
+
+module.exports = app;

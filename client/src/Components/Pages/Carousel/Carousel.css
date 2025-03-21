@@ -1,0 +1,73 @@
+.img{
+    opacity: 0.5 ;
+    /* width: 100%; */
+    height: 100vh;
+
+}
+/* Default styling for indicators */
+.carousel{
+    position: relative;
+}
+.carousel-indicators {
+    bottom: 10px; /* Adjust vertical positioning */
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* Space between indicators */
+}
+
+.carousel-indicators .indicator-btn {
+    width: 50px; /* Default width */
+    height: 4px; /* Default height */
+    background-color: #ffa920;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Highlight the active indicator */
+.carousel-indicators .indicator-btn.active {
+    background-color: #ffa920; /* Slightly darker */
+    height: 5px;
+}
+
+/* On hover effect */
+.carousel-indicators .indicator-btn:hover {
+    background-color: #ffa920;
+}
+
+/* === Responsive Adjustments === */
+
+/* For medium screens (tablets) */
+@media screen and (max-width: 768px) {
+    .carousel-indicators {
+        bottom: 5px; /* Adjust position */
+    }
+    
+    .carousel-indicators .indicator-btn {
+        width: 35px; /* Reduce width */
+        height: 3px; /* Reduce height */
+    }
+    .carousel,.pot1{
+        margin-top: 80px;
+    }
+}
+
+/* For small screens (mobile) */
+@media screen and (max-width: 425px) {
+    .carousel-indicators {
+        bottom: 5px; /* Slightly higher */
+        gap: 3px; /* Less spacing */
+    }
+
+    .carousel-indicators .indicator-btn {
+        width: 25px; /* Smaller size */
+        height: 3px;
+    }
+
+    .carousel-indicators .indicator-btn.active {
+        height: 4px; /* Keep active indicator slightly bigger */
+    }
+    .carousel,.pot1{
+        margin-top: 80px;
+    }
+  
+}

@@ -1,0 +1,54 @@
+@media screen and (max-width:1440px) {
+    .contact_table {
+        width: 500px;
+
+        } 
+}
+
+@media screen and (max-width:800px) {
+    .contact_table {
+        width: 350px;
+        margin-left: 20px;
+        margin-right: 50px;
+
+        } 
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .nav-button, .page-button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: 1px solid #ffa920;
+    background-color: white;
+    color: #ffa920;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+  }
+  
+  .page-button:hover, .nav-button:hover {
+    background-color: #ffa920;
+    color: white;
+  }
+  
+  .page-button.active {
+    background-color: #ffa920;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #ffa920;
+  }
+  
+  .nav-button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    border: 1px solid #999;
+  }
+  

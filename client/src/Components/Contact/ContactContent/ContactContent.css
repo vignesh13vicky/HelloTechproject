@@ -1,0 +1,56 @@
+.contactwhole{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.contact-us{
+    font-size: clamp(5px 5vw 40px);
+    position: relative;
+    display: inline-block;
+    /* font-size: 24px; */
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffa920; /* Green color */
+}
+
+
+/* Left & Right Lines */
+.contact-us::before{
+    content: "";
+    position: absolute;
+    width: 50px; /* Length of the longer lines */
+    height: 3px; /* Thickness of the line */
+    background-color: #ffa920; /* Green color */
+    top: 50%;
+    margin-left: 40px;
+    /* transform: translateY(-200%); */
+}
+.contact-us::after {
+    content: "";
+    position: absolute;
+    width: 50px; /* Length of the longer lines */
+    height: 3px; /* Thickness of the line */
+    background-color: #ffa920; /* Green color */
+    top: 50%;
+    margin-right: 40px;
+    /* transform: translateY(-200%); */
+}
+
+/* Left Line */
+.contact-us::before {
+    left: 70px;
+}
+
+/* Right Line */
+.contact-us::after {
+    right: 70px;
+}
+
+/* Small Inner Lines */
+.contact-us::before
+.contact-us::after {
+    width: 30px; /* Length of the longer lines */
+    height: 5px;
+    color: black;
+}

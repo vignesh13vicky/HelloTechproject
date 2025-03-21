@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.about-us {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #ffa920;
+    font-size: 16px;
+}
+
+.line1, .line2 {
+    background-color: #ffa920;
+    margin-left: 10px;
+}
+
+.line1 {
+    width: 80px;
+    height: 3px;
+}
+
+.line2 {
+    width: 45px;
+    height: 2px;
+    margin-top: 5px;
+}
+
+/* === General Styling === */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.home_about11, .home_about1 {
+    text-align: left;
+}
+
+/* === Responsive Image Styling === */
+.home_img11, .home_img1 {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* === Desktop Screens (1440px+) === */
+@media screen and (min-width: 1440px) {
+    .home_img11 {
+        width: 600px;
+        height: 500px;
+    }
+
+    .home_about11 {
+        width: 550px;
+    }
+
+    .home_img1 {
+        width: 500px;
+        height: 450px;
+        margin-left: 50px;
+    }
+
+    .home_about1 {
+        width: 550px;
+    }
+}
+
+/* === Medium Screens (Tablets: 768px - 1024px) === */
+@media screen and (max-width: 1024px) {
+    .home_img11, .home_about11, .home_img1, .home_about1 {
+        width: 100%;
+        /* text-align: center; */
+    }
+
+    .home_img1 {
+        margin-left: 0;
+    }
+}
+
+/* === Mobile Screens (Below 768px) === */
+@media screen and (max-width: 768px) {
+    .home_img11, .home_img1 {
+        width: 100%;
+        height: auto;
+    }
+
+    .home_about11, .home_about1 {
+        width: 100%;
+        /* text-align: center; */
+        padding: 15px;
+    }
+
+    .line1, .line2 {
+        width: 50px;
+    }
+}

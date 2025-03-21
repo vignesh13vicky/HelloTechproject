@@ -1,0 +1,70 @@
+.whole a{
+    color: #ffffff !important;  /* Change to your preferred color */
+    text-decoration: none !important;
+    /* font-weight: 500; */
+    /* display: flex;    */
+    /* align-items: center; */
+    /* gap: 5px; */
+
+}
+.Icons{
+    color: #ffa920 !important;
+    /* margin-right: 15px; */
+}
+
+.designers{
+    color: #ffa920 !important;
+    font-size: clamp(22px, 5vw, 24px);
+}
+.Links{
+    color: #ffa920 !important;
+    font-size: clamp(22px, 5vw, 24px);
+}
+.linkspart a{
+    transform: scale(0);
+    transition:all 0.5s ease;
+}
+.linkspart a:hover{
+    transform:scale(1) ;
+}
+.contact{
+    color: #ffa920 !important;
+    font-size: clamp(22px, 5vw, 24px);
+}
+.designpara{
+    font-size: clamp(16px, 5vw, 16px);
+    color: #ffffff;
+
+}
+
+.custom-line {
+    border: none;
+    height: 2px;
+    background-color: #ffffff; /* Change color */
+    width: 100%;
+    
+  }
+  .vignesh a{
+    color: #ffa920;
+  }
+
+ .stline1{
+    width: 5px;
+    /* Adjust width as needed */
+    height:35px;
+    border-radius: 10px;
+    /* Adjust thickness */
+    background-color: #ffa920;
+    /* Same color as text */
+    /* margin-left: 10px;    */
+    /* margin-top: 7px;   */
+}
+
+.contact_icon{
+    display: flex;
+    margin: 5px;
+    
+}
+.contact_text{
+padding-top: px;
+}

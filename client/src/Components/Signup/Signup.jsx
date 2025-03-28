@@ -2,32 +2,83 @@ import React, { useState } from "react";
 import LoginAndSignupImage from "../LoginAndSignupImage/LoginAndSignupImage";
 import "../Signup/Signup.css";
 import { Client } from "../Client";
+import {useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const Signup = () => {
+  const navigate = useNavigate();
   const initialData = { name: "", email: "", password: "" };
   const [user, setUser] = useState(initialData);
+  // const [errors, setErrors] = useState({ name: false, email: false, password: false });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
+    // setErrors((prev) => ({ ...prev, [name]: false })); 
+
   };
 
   const submit = async (e) => {
     e.preventDefault();
-    console.log(user);
+
+    // let newErrors = { name: false, email: false, password: false };
+
+    // if (!user.name.trim()) newErrors.name = true;
+    // if (!user.email.trim()) newErrors.email = true;
+    // if (!user.password.trim()) newErrors.password = true;
+
+    // setErrors(newErrors);
+
+    // If any field has an error, stop submission
+    // if (Object.values(newErrors).includes(true)) {
+    //   alert("Please fill in all fields correctly.");
+    //   return;
+    // }
+
+console.log(user);
 
     try {
-      const addNewUser = await Client.post('/signup/signupAdd', user);
-      console.log(addNewUser);
+      const addNewUser = await Client.post('/signup/signupAdd', {user});
+      console.log("Response:",addNewUser);
 
       if (addNewUser.status === 200) {
-        alert("Registration successful! Redirecting to login...");
+        toast.success("Submitted Successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          theme: "colored",
+        });
+      // alert(response.data.message)
+      
         setUser(initialData);
+      
+        // Delay navigation until toast is visible
+        setTimeout(() => 
+          navigate("/otp", { state: { user } }), 
+      2000);
       }
-    } catch (error) {
+        console.log(addNewUser);
+    }catch (error) {
+      // console.log("Error Response:", error.response?.data || error.message);
       console.log(error);
-    }
+      toast.warning(error.response.data.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        theme: "colored",
+      });
+      // alert(error.response.data.message);
+      
+  }
+  
   };
 
   return (
@@ -36,8 +87,8 @@ const Signup = () => {
     <div className="contain_signup d-flex justify-content-center align-items-center">
       <div className="whole_signup" style={{top:"85px",position:"absolute",zIndex:"5",width:"315px",}}>
         {/* <form> */}
+        <ToastContainer />
           <h3 className="mb-3 text-center">Registration page</h3>
-    
           <div className="mb-3 ">
             <label className="form-label">
               Name
@@ -45,6 +96,7 @@ const Signup = () => {
             <input
               type="text"
               className="form-control"
+              // className={`form-control input-field  ${errors.name ? "error" : ""}`}
               placeholder='Enter Your Name'
               name="name"
               value={user.name}
@@ -58,6 +110,7 @@ const Signup = () => {
             <input
               type="email"
               className="form-control"
+              // className={`form-control input-field ${errors.email ? "error" : ""}`}
               placeholder='Enter Your Email'
               name="email"
               value={user.email}
@@ -71,6 +124,7 @@ const Signup = () => {
             <input
               type="password"
               className="form-control"
+              // className={`form-control input-field ${errors.password ? "error" : ""}`}
               placeholder='Enter Your Password'
               name="password"
               value={user.password}
@@ -80,19 +134,19 @@ const Signup = () => {
 
           {/* <div className="mb-3">
             <label className="form-label">
-              Confirm Password
+            Confirm Password
             </label>
             <input
-              type="password"
-              className="form-control"
-              placeholder='Confirm Your Password'
-              // name="cpassword"
-              // value={user.cpassword}
-              onChange={handleChange}
+            type="password"
+            className="form-control"
+            placeholder='Confirm Your Password'
+            // name="cpassword"
+            // value={user.cpassword}
+            onChange={handleChange}
             />
-          </div> */}
+            </div> */}
 
-          <button type="submit" className="submit_button" onClick={submit}>
+          <button type="button" className="submit_button" onClick={submit}>
             Submit
           </button>
         {/* </form> */}

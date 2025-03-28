@@ -1,6 +1,5 @@
 const messageSchema = require("../Model/RegistrationSchema");
 
-
 exports.newRegistration = async (req, res) => {
     console.log("hii")
   console.log(req.body);
@@ -46,12 +45,12 @@ exports.getUser = async (req, res) => {
   try {
     const getUser = await messageSchema.find();
     console.log("Fetched Users:", getUser);
-
+if(getUser){
     res.status(200).json({
       message: "Success",
        getUser,
     });
-
+  }
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ message: "Server Error", error: error.message });

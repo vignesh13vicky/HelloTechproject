@@ -2,13 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const path= require("path")
+const cookieParser= require('cookie-parser')
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const allowedUrl = {
-  // origin: ["http://localhost:3000","http://localhost:3001"],
-  origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
+  origin: ["http://localhost:3000","http://localhost:3001"],
+  // origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
   method: ["POST","GET"], 
   // Credentials:true
 };
@@ -17,11 +19,14 @@ app.use(cors(allowedUrl));
 const userRoute = require("./Route/RegistrationRoutes");
 app.use("/user", userRoute);
 
+const loginRoute = require("./Route/LoginRoutes");
+app.use("/login",loginRoute)
+
 const signupRoute = require("./Route/SignupRouter");
 app.use("/signup", signupRoute);
 
 const adminLoginRoute = require("./Route/AdminLoginRoutes");
-app.use('/login', adminLoginRoute)
+app.use('/adminlogin', adminLoginRoute)
 
 
 

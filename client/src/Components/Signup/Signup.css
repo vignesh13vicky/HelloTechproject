@@ -25,6 +25,29 @@ color: #ffa920;
 /* color: #ffa920; */
 /* margin: 10px; */
 }
+
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .input-field.error {
+    border-color: red;
+    background-color: #ffe6e6;
+  }
+  
+  .input-field:focus {
+    border-color: #ffa920;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+
 input {
 background-color: #ffa920; /* Light gray background */
 color: #333; /* Dark text color */

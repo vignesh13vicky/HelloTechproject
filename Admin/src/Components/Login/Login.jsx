@@ -20,7 +20,7 @@ const submit = async(e)=>{
   // e.preventDefault();
   console.log(user);
   try {
-    const addNewUser = await Client.get("/login/adminloginget",user);
+    const addNewUser = await Client.get("/adminlogin/adminloginget",user);
     console.log(addNewUser);
     if(addNewUser.status === 200){
       alert("submitted successfully")

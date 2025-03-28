@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Client } from "../../Client";
+import { ToastContainer, toast } from 'react-toastify';
 import '../AdminServicesTitlecard/AdmServicesTitlecard.css'
 
 const AdminServicesTitlecard = () => {
@@ -38,8 +39,15 @@ const handleImage = (e)=>{
       const fileUpload = await Client.post("/servicestitle/servicestitlecard", formData);
       console.log(fileUpload);
       if (fileUpload.status === 200) {
-        alert("submitted successfully!");
-        setUser(initialData);
+        toast.success("Submitted Successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          theme: "colored",
+        });        setUser(initialData);
       }
     } catch (error) {
       console.log(error);
@@ -68,6 +76,7 @@ const handleImage = (e)=>{
   return (
     <>
       <div className="containers">
+        <ToastContainer />
         <form>
           <div className="mb-3">
             <label  className="form-label">

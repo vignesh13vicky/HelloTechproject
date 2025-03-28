@@ -9,7 +9,8 @@ import Signup from './Components/Signup/Signup';
 import ScrollToTop from './Components/ScrollToTop/ScrollToTop ';
 import ServicesReadMore from './Components/Services/ServicesReadMore/ServicesReadMore'
 import Error from './Components/Error/Error';
-// import Home from "../../Admin/admin/src/Component/Home/Home"
+import { ToastContainer } from 'react-toastify';// import Home from "../../Admin/admin/src/Component/Home/Home"
+import Otp from './Components/OTP/Otp';
 // import AdminHome from '../../Admin/admin/src/Component/Home/AdminHome';
 
 
@@ -19,15 +20,18 @@ function App() {
      <ScrollToTop/>
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/Login" element={<Login />} />
+      <Route path="/otp" element={<Otp />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/about" element={<About />} />
       <Route path="/services" element={<Services />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
       <Route path="/readmore/:id" element={<ServicesReadMore />} />
       <Route path='/*'element={<Error/>} />
+      
       {/* <Route path="/adminhome" element={() => { window.location.href = "http://localhost:3001"; return null; }} /> */}
       </Routes>
+      <ToastContainer />
     </>
    
   );

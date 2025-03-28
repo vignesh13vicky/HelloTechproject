@@ -37,7 +37,7 @@ const AdminContact = () => {
     try {
       await Client.post(`/user/userDel/${selectedId}`);
       setDetails(details.filter((user) => user._id !== selectedId));
-      toast.error("Submitted Successfully!",{
+      toast.error("Deleted Successfully!",{
         position:'top-center',
         autoClose:3000,
         hideProgressBar:false,

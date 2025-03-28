@@ -1,8 +1,9 @@
-// const { get } = require("mongoose");
+const mongoose = require("mongoose");
 const AdminServicesTitlecard = require("../Model/AdminServicesTitlecardSchema");
 const multer = require("multer");
 const streamifier = require("streamifier");
-const cloudinary = require("../Cloudinary");
+const cloudinary = require ("../Cloudinary")
+
 
 const multerConfig = multer({
   storage: multer.memoryStorage(),
@@ -31,7 +32,7 @@ exports.AdminServicesTitlecard = async (req, res, next) => {
       },
       (err, result) => {
         if (err) {
-          console.error("Cloudinary upload error:", err);
+          console.log("Cloudinary upload error:", err);
           return res.status(500).json({
             error: "Cloudinary upload failed",
           });
@@ -43,7 +44,7 @@ exports.AdminServicesTitlecard = async (req, res, next) => {
     );
     streamifier.createReadStream(req.file.buffer).pipe(stream);
   } catch (error) {
-    console.error("Unexpected error during upload:", error);
+    console.log("Unexpected error during upload:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -73,7 +74,7 @@ exports.getadminServicesTitlecard = async (req, res) => {
       users: getadminServices,
     });
   } catch (error) {
-    console.error("Error:", error);
+    console.log("Error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
@@ -114,6 +115,34 @@ exports.getadminServicesTitlecardImageOne = async (req, res) => {
   }
 };
 
+exports.delFile =  async (req,res) =>{
+  const {id} =req.params;
+  console.log(id);
+
+  try {
+
+    const serviceproduct = await AdminServicesTitlecard.findById(id);
+    if(!serviceproduct) {
+      return res.status(404).json({message:"product not found"})
+    }
+
+    if(serviceproduct.image && serviceproduct.image.public_id){
+      await cloudinary.uploader.destroy(serviceproduct.image.public_id)
+    }
+
+    await AdminServicesTitlecard.findByIdAndDelete(id);
+
+    res.status(200).json({message:"product deleted successfully!"})
+
+  } catch (error){
+    console.log(error);
+    
+
+  }
+  
+}
+
+
 // Save file details to MongoDB
 // exports.fileSave = async (req, res) => {
 //   console.log("Saving file details to database...");
@@ -144,23 +173,4 @@ exports.getadminServicesTitlecardImageOne = async (req, res) => {
 //     console.error("Database Error:", error);
 //     return res.status(500).json({ error: "Database save failed" });
 //   }
-// };
-
-// exports.DeleteadminServicesTitlecard = async (req, res) => {
-//   // console.log(req);
-//   console.log("user delete");
-
-//   const { id } = req.params;
-//   console.log(id);
-
-//   try {
-//     const userDel = await AdminServicesTitlecard.findByIdAndDelete(id);
-//     console.log(DeleteadminServicesTitlecard);
-
-//     if (DeleteadminServicesTitlecard) {
-//       res.status(200).json({
-//         message: "deleted successfully",
-//       });
-//     }
-//   } catch (error) {}
 // };

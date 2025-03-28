@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../Login/Login.css'
 import LoginAndSignupImage from '../LoginAndSignupImage/LoginAndSignupImage'
 import { Client } from '../Client'
+// import Cookies from "js-cookie";
 import {useNavigate } from 'react-router-dom'
 
 const Login = () => {
@@ -9,52 +10,102 @@ const Login = () => {
 const initialData = {email:"",password:""}
 const navigate = useNavigate();
 const [user, setUser] = useState(initialData)
+  // const [token, setToken] = useState("");
+
 
 const handleChange=(e)=>{
   const {name,value}=e.target;
   setUser((prev)=>({...prev,[name]:value}))
 }
 
+//  const tokens = Cookies.get("jwttoken");
+//     console.log(tokens);
+//     setToken(tokens);
+
+
 const submit = async(e)=>{
-  // e.preventDefault();
+  e.preventDefault();
   console.log(user);
   try {
-    const addNewUser = await Client.post("/login",user,{withCredentials:true,});
+    const addNewUser = await Client.post("/login/loginuser",user);
     console.log(addNewUser);
-    if(addNewUser.status === 200){
+    if (addNewUser.status === 200 && addNewUser.data) {
+      // toast.success("submitted successfully!", {
+      //   position: "top-center",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: false,
+      //   draggable: true,
+      //   theme: "colored",
+      // });
       alert("submitted successfully")
+    
       setUser(initialData);
-      verify();
+      // Cookies.set("jwttoken", addNewUser.data.token);
+      navigate("/");
+      // verify();
+    }
+    else {
+      alert("Unexpected response from server.");
+      navigate("/signup");
     }
   } catch (error) {
-    console.log(error.response.data.message);
-    alert(error.response.data.message)
-    
-  }
+    console.log(error);
+          alert(error.response.data.message);
+
+    // if (error.response) {
+    //   alert(error.response.data?.message || "Login failed!");
+    // } else {
+    //   alert("Server error or no response received.");
+    // } 
+     }
   
 }
 
-const verify = async()=>{
-  try {
-    const verifyToken = await Client.get("/signup/verify",{withCredentials:true,
-    })
-    console.log(verifyToken);
+// const verify = async () => {
+//   try {
+//     const verifyToken = await Client.get("/login/logincheck");
+//     console.log(verifyToken);
+
+//     const role = verifyToken.data.role;
+//     console.log(role);
+
+//     if (verifyToken.status === 200) {
+//       if (role) {
+//         navigate("/admin");
+//       } else {
+//         navigate("/user");
+//       }
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// const verify = async()=>{
+//   try {
+//     const verifyToken = await Client.post("/signup/verify",{withCredentials:true,
+//     })
+//     console.log(verifyToken);
     
-    const role = verifyToken.data.role;
-    console.log(role);
-    if(verifyToken.status === 200){
-      if(role){
-        navigate('/adminhome');
-      }
-      else{
-        navigate('/');
-      }
-    }
+//     const role = verifyToken.data.role;
+//     console.log(role);
+//     if(verifyToken.status === 200){
+//       if(role==="admin"){
+//         navigate('/admin/adminhome');
+//         // window.location.href = "http://localhost:3001/admin/adminhome";
+//       }
+//       else{
+//         navigate('/');
+//       }
+//     }
     
-  } catch (error) {
+//   } catch (error) {
     
-  }
-}
+//   }
+// }
+
   return (
     <>
     <LoginAndSignupImage/>
@@ -107,4 +158,4 @@ const verify = async()=>{
   )
 }
 
-export default Login
+export default Login;

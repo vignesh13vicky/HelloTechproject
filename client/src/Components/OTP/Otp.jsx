@@ -1,6 +1,7 @@
 import {React,useState,useEffect} from "react";
 import { Client } from "../Client";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import Cookies from "js-cookie"
 
 const Otp = () => {
@@ -32,6 +33,7 @@ const Otp = () => {
   const handleOtpSubmit = async(e) => {
     e.preventDefault();
     if (otp.length !== 6) {
+      
       alert("Please enter a valid 6-digit OTP.");
   
     } else {
@@ -46,16 +48,16 @@ const Otp = () => {
           otpExpires:user.otpExpires,
         });
         if (verifyOpUser.status === 200 && verifyOpUser.data) {
-          //  toast.success("Otp verified!", {
-          //           position: "top-center",
-          //           autoClose: 3000,
-          //           hideProgressBar: false,
-          //           closeOnClick: true,
-          //           pauseOnHover: false,
-          //           draggable: true,
-          //           theme: "colored",
-          //         });
-          alert("Otp verified")
+           toast.success("Otp verified!", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    theme: "colored",
+                  });
+          // alert("Otp verified")
         //     Cookies.set("jwttoken", verifyOpUser.data.token);
         // setToken(verifyOpUser.data.token);
         const token = Cookies.get("jwttoken");
@@ -74,6 +76,7 @@ const Otp = () => {
   return (
     <>
       <div className="container">
+      <ToastContainer />
         <h2>Verify OTP</h2>
         <input
           type="text"

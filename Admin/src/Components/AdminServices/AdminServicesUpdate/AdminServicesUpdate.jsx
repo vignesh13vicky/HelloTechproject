@@ -1,5 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { Client } from "../../Client";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const AdminServicesUpdate = () => {
   const [details, setDetails] = useState([]);
@@ -28,22 +30,42 @@ const AdminServicesUpdate = () => {
     try {
       const delRes = await Client.post(`/servicestitle/serviceDelete/${id}`);
       if (delRes.status === 200) {
+             toast.error("Product Deleted Successfully!", {
+                  position: "top-center",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  theme: "colored",
+                });
         getUserData();
+
       }
       console.log(delRes);
     } catch (error) {
       console.log(error);
+      toast.warning(error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        theme: "colored",
+      });
     }
   };
 
   return (
     <>
-      <div className="container mt-5 ">
+      <ToastContainer />
+      <div className="container mt-5 ms-5">
         <div className="">
-          <h1>Services Details</h1>
+          <h1 className="text-center">Services Details</h1>
         </div>
 
-        <table className="contact_table table table-bordered table-striped">
+        <table className="contact_table table table-bordered table-striped  ms-5">
           <thead>
             <tr className="table-primary">
               <th>Image</th>

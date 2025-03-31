@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../Login/Login.css'
+import { ToastContainer, toast } from 'react-toastify';
 import LoginAndSignupImage from '../LoginAndSignupImage/LoginAndSignupImage'
 import { Client } from '../Client'
 // import Cookies from "js-cookie";
@@ -27,24 +28,24 @@ const submit = async(e)=>{
   e.preventDefault();
   console.log(user);
   try {
-    const addNewUser = await Client.post("/login/loginuser",user);
+    const addNewUser = await Client.post("/login/loginuser",user,{withCredentials:true});
     console.log(addNewUser);
-    if (addNewUser.status === 200 && addNewUser.data) {
-      // toast.success("submitted successfully!", {
-      //   position: "top-center",
-      //   autoClose: 3000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: false,
-      //   draggable: true,
-      //   theme: "colored",
-      // });
-      alert("submitted successfully")
+    if (addNewUser.status === 200) {
+      toast.success("submitted successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        theme: "colored",
+      });
+      // alert("submitted successfully")
     
       setUser(initialData);
       // Cookies.set("jwttoken", addNewUser.data.token);
-      navigate("/");
-      // verify();
+      // navigate("/");
+      verify();
     }
     else {
       alert("Unexpected response from server.");
@@ -63,25 +64,27 @@ const submit = async(e)=>{
   
 }
 
-// const verify = async () => {
-//   try {
-//     const verifyToken = await Client.get("/login/logincheck");
-//     console.log(verifyToken);
+const verify = async () => {
+  try {
+    const verifyToken = await Client.get("/login/loginverify",{withCredentials:true});
+    console.log(verifyToken);
 
-//     const role = verifyToken.data.role;
-//     console.log(role);
+    const role = verifyToken.data.role;
+    console.log(role);
 
-//     if (verifyToken.status === 200) {
-//       if (role) {
-//         navigate("/admin");
-//       } else {
-//         navigate("/user");
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+    if (verifyToken.status === 200) {
+      if (role) {
+        // navigate("http://localhost:3001");
+
+        window.open("http://localhost:3001", "_blank");
+      } else {
+        navigate("/");
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // const verify = async()=>{
 //   try {
@@ -110,6 +113,7 @@ const submit = async(e)=>{
     <>
     <LoginAndSignupImage/>
     <div className="container">
+            <ToastContainer />
     <div className='contain_login d-flex justify-content-center align-items-center'>
        
       <div className="whole_login 

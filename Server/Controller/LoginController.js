@@ -49,36 +49,115 @@ exports.login = async (req, res) => {
   };
 
 
-  exports.verify = async (req, res) => {
-    console.log(req.cookies);
+  // exports.verify = async (req, res) => {
+  //   console.log(req.cookies);
   
-    try {
-      if (!req.cookies && !req.cookies.jwttoken) {
-        res.status(401).json({
-          message: "Unauthorised",
-        });
-      }
-      let token = req.cookies.jwttoken;
-      const verifyJwt = jwt.verify(token, secretKey);
-      console.log(verifyJwt);
-      const { id } = verifyJwt; 
+  //   try {
+  //     if (!req.cookies && !req.cookies.jwttoken) {
+  //       res.status(401).json({
+  //         message: "Unauthorised",
+  //       });
+  //     }
+  //     let token = req.cookies.jwttoken;
+  //     const verifyJwt = jwt.verify(token, secretKey);
+  //     console.log(verifyJwt);
+  //     const { id } = verifyJwt; 
   
-      const checkUser = await SignupRegistration.findById(id);
-      const role=checkUser.admin;
-      console.log(role);
+  //     const checkUser = await SignupRegistration.findById(id);
+  //     const role=checkUser.admin;
+  //     console.log(role);
       
-      console.log(checkUser);
+  //     console.log(checkUser);
   
-      if (!checkUser) {
-        res.status(401).json({
-          message: "unauthorised user",
+  //     if (!checkUser) {
+  //       res.status(401).json({
+  //         message: "unauthorised user",
+  //       });
+  //     }
+  
+  //     res.status(200).json({
+  //       message: "success",
+  //       id: checkUser._id,
+  //       role
+  //     });
+  //   } catch (error) {}
+  // };
+
+
+  // exports.verify = async (req, res) => {
+  //   console.log(req.cookies);
+  //   console.log("im from verify");
+  
+  //   try {
+  //     if (!req.cookies && !req.cookies.jwttoken) {
+  //       res.status(401).json({
+  //         message: "Unauthorised",
+  //       });
+  //     }
+  //     let token = req.cookies.jwttoken;
+  //     const verifyJwt = jwt.verify(token, secretKey);
+  //     console.log(verifyJwt);
+  //     const { id } = verifyJwt; 
+  
+  //     const checkUser = await SignupRegistration.findById(id);
+  //     const role=checkUser.admin;
+  //     console.log(role);
+      
+  //     console.log(checkUser);
+  
+  //     if (!checkUser) {
+  //       res.status(401).json({
+  //         message: "unauthorised user",
+  //       });
+  //     }
+  
+  //     res.status(200).json({
+  //       message: "success",
+  //       id: checkUser._id,
+  //       role
+  //     });
+  //   } catch (error) {}
+  // };
+
+
+exports.verify = async (req, res,next) => {
+    console.log(req.cookies);
+    console.log("im from verify");
+
+    try {
+        // Fix incorrect condition for checking token
+        if (!req.cookies || !req.cookies.jwttoken) {
+            return res.status(401).json({ message: "Unauthorized" ,});
+        }
+
+        let token = req.cookies.jwttoken;
+        const verifyJwt = jwt.verify(token, secertKey);
+        console.log("Verified JWT:", verifyJwt);
+        const { id } = verifyJwt;
+
+        const checkUser = await SignupRegistration.findById(id);
+
+        if(checkUser){
+          next()
+        }
+
+        // Check if user exists before accessing properties
+        if (!checkUser) {
+            return res.status(401).json({ message: "Unauthorized user" });
+        }
+
+        const role = checkUser.admin;
+        console.log("User Role:", role);
+        console.log("User Details:", checkUser);
+
+        res.status(200).json({
+            message: "Success",
+            id: checkUser._id,
+            role
         });
-      }
-  
-      res.status(200).json({
-        message: "success",
-        id: checkUser._id,
-        role
-      });
-    } catch (error) {}
-  };
+
+    } catch (error) {
+        console.error("JWT Verification Error:", error);
+        return res.status(403).json({ message: "Invalid or expired token" });
+    }
+};

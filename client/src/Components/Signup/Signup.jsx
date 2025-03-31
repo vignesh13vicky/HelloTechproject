@@ -62,10 +62,24 @@ console.log(user);
           navigate("/otp", { state: { user } }), 
       2000);
       }
+   
         console.log(addNewUser);
     }catch (error) {
+      console.error("Error Response:", error.response?.data || error.message);
+
+      // const errorMessage = error.response?.data?.message || "Something went wrong!";
+      
+      // toast.error(errorMessage, {
+      //   position: "top-center",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: false,
+      //   draggable: true,
+      //   theme: "colored",
+      // });
       // console.log("Error Response:", error.response?.data || error.message);
-      console.log(error);
+      // console.log(error);
       toast.warning(error.response.data.message, {
         position: "top-center",
         autoClose: 3000,
@@ -75,6 +89,11 @@ console.log(user);
         draggable: true,
         theme: "colored",
       });
+      if (error.response?.status === 400) {
+        setTimeout(() => 
+          navigate("/login"),2000)   
+      }
+      
       // alert(error.response.data.message);
       
   }

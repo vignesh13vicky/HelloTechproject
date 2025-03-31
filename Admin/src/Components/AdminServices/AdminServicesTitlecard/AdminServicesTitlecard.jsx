@@ -1,21 +1,20 @@
 import { React, useState, useEffect } from "react";
 import { Client } from "../../Client";
-import { ToastContainer, toast } from 'react-toastify';
-import '../AdminServicesTitlecard/AdmServicesTitlecard.css'
+import { ToastContainer, toast } from "react-toastify";
+import "../AdminServicesTitlecard/AdmServicesTitlecard.css";
 
 const AdminServicesTitlecard = () => {
-  const initialData = {servicestitle: "", servicesdescription: "" };
+  const initialData = { servicestitle: "", servicesdescription: "" };
 
   const [image, setImage] = useState();
   const [user, setUser] = useState(initialData);
   // const [details, setDetails] = useState();
 
-
-const handleImage = (e)=>{
-  console.log(e.target.files);
-  const actualFile = e.target.files[0];
-  setImage(actualFile)
-}
+  const handleImage = (e) => {
+    console.log(e.target.files);
+    const actualFile = e.target.files[0];
+    setImage(actualFile);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,9 +33,11 @@ const handleImage = (e)=>{
       formData.append("image", image);
       formData.append("servicestitle", user.servicestitle);
       formData.append("servicesdescription", user.servicesdescription);
-     
 
-      const fileUpload = await Client.post("/servicestitle/servicestitlecard", formData);
+      const fileUpload = await Client.post(
+        "/servicestitle/servicestitlecard",
+        formData
+      );
       console.log(fileUpload);
       if (fileUpload.status === 200) {
         toast.success("Submitted Successfully!", {
@@ -47,7 +48,8 @@ const handleImage = (e)=>{
           pauseOnHover: false,
           draggable: true,
           theme: "colored",
-        });        setUser(initialData);
+        });
+        setUser(initialData);
       }
     } catch (error) {
       console.log(error);
@@ -70,18 +72,18 @@ const handleImage = (e)=>{
   };
 
   useEffect(() => {
-    setImage()
+    setImage();
     getUserData();
   }, []);
   return (
     <>
-      <div className="containers">
+      <div className="containers m-4">
         <ToastContainer />
-        <form>
-          <div className="mb-3">
-            <label  className="form-label">
-              Image
-            </label>
+        <h1 className="text-center">Services Add</h1>
+        <form className="ms-5 fileHandling">
+          <div className="ms-2">
+          <div className="mb-3 ">
+            <label className="form-label">Image</label>
             <input
               className="form-control"
               type="file"
@@ -91,9 +93,7 @@ const handleImage = (e)=>{
             />
           </div>
           <div className="mb-3">
-            <label  className="form-label">
-            Image Title
-            </label>
+            <label className="form-label">Image Title</label>
             <input
               type="text"
               className="form-control"
@@ -104,19 +104,19 @@ const handleImage = (e)=>{
           </div>
           <div className="mb-3">
             <label className="form-label"> Image Title Description</label>
-            <input
-              type="text"
+            <textarea
+              rows="5"
               className="form-control"
               name="servicesdescription"
               value={user.servicesdescription}
               onChange={handleChange}
             />
           </div>
-        
 
-          <button type="submit" className="btn btn-primary" onClick={submit}>
+          <button type="submit" className="btn btn-primary text-center"  onClick={submit}>
             Submit
           </button>
+          </div>
         </form>
       </div>
     </>

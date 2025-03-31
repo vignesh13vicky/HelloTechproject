@@ -1,6 +1,6 @@
 const messageSchema = require("../Model/RegistrationSchema");
 
-exports.newRegistration = async (req, res) => {
+exports.enquirySubmit = async (req, res) => {
     console.log("hii")
   console.log(req.body);
   const { name, mobile, email,message,date } = req.body;

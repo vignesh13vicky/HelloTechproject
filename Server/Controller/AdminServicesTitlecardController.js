@@ -9,11 +9,14 @@ const multerConfig = multer({
   storage: multer.memoryStorage(),
 });
 
+
+
 exports.upload = multerConfig.single("image");
 
 exports.AdminServicesTitlecard = async (req, res, next) => {
   console.log(req.body);
   console.log("New Service Title Card");
+
   if (!req.file) {
     return res
       .status(400)

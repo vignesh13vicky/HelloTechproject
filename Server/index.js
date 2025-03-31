@@ -12,8 +12,7 @@ const allowedUrl = {
   origin: ["http://localhost:3000","http://localhost:3001"],
   // origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
   method: ["POST","GET"], 
-  // Credentials:true
-};
+  credentials: true,};
 app.use(cors(allowedUrl));
 
 const userRoute = require("./Route/RegistrationRoutes");

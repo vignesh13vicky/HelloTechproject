@@ -60,15 +60,17 @@ const AdminContact = () => {
 
   return (
     <>
-      <div className="container  m-5">
+      <div className="container m-5">
       <ToastContainer />
+      <h1 className="text-center">Contact Message</h1>
         {details.length === 0 ? (
           <p>No messages available.</p>
         ) : (
+          <div className="table-responsive ms-4">
           <table className="contact_table table table-bordered table-striped">
             <thead>
-              <tr className="table-primary">
-                <th>Name</th>
+            <tr className="table-primary text-center">
+            <th>Name</th>
                 <th>Mobile</th>
                 <th>Email</th>
                 <th>Date</th>
@@ -83,7 +85,7 @@ const AdminContact = () => {
                   <td>{user.mobile}</td>
                   <td>{user.email}</td>
                   <td>{new Date(user.date).toLocaleDateString()}</td>
-                  <td
+                  <td 
                     style={{
                       maxWidth: "300px",
                       overflow: "hidden",
@@ -108,10 +110,11 @@ const AdminContact = () => {
               ))}
             </tbody>
           </table>
+        </div>
         )}
 
         {/* Pagination */}
-        <div className="pagination-container">
+        <div className="pagination-container d-flex justify-content-center align-items-center mt-3">
   <button 
     className="nav-button" 
     disabled={currentPage === 1} 

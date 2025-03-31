@@ -6,9 +6,9 @@ const Signup = new mongoose.Schema({
     password:{type:String },
     otp: { type: String },  
     otpExpires: { type: Date },
-    verify: { type: Boolean, default: false },
     admin:{type:Boolean,default:false},
-},{ timeStamps: true })
+    verify: { type: Boolean, default: false },
+},{ timestamps: true })
 
 const SignupRegistration = mongoose.model('Signup Page',Signup);
 

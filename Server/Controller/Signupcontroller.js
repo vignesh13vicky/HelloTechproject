@@ -134,7 +134,7 @@ exports.SignupCheck = async (req,res)=>{
     })
     console.log("sigin",token);
     if (token) {
-        res.status(200).cookie("jwttoken",token,{
+        res.status(200).cookie("registrationToken",token,{
             httpOnly:true,
             sameSite:"none",
             secure:true,

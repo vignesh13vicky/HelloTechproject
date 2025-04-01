@@ -138,26 +138,43 @@ exports.verify = async (req, res,next) => {
         const checkUser = await SignupRegistration.findById(id);
 
         if(checkUser){
+          console.log('token iruku');
+          
           next()
         }
 
         // Check if user exists before accessing properties
-        if (!checkUser) {
-            return res.status(401).json({ message: "Unauthorized user" });
-        }
+        // if (!checkUser) {
+        //     return res.status(401).json({ message: "Unauthorized user" });
+        // }
 
-        const role = checkUser.admin;
-        console.log("User Role:", role);
-        console.log("User Details:", checkUser);
+        // const role = checkUser.admin;
+        // console.log("User Role:", role);
+        // console.log("User Details:", checkUser);
 
-        res.status(200).json({
-            message: "Success",
-            id: checkUser._id,
-            role
-        });
+        // res.status(200).json({
+        //     message: "Success",
+        //     id: checkUser._id,
+        //     role
+        // });
 
     } catch (error) {
         console.error("JWT Verification Error:", error);
         return res.status(403).json({ message: "Invalid or expired token" });
     }
 };
+
+exports.logout = async(req,res)=>{
+  try {
+      res.status(200).cookie("jwttoken","",{
+          httpOnly:true,
+          sameSite:"none",
+          secure:true,
+          expires:new Date(0)
+      })
+      .json({message:"success"})
+  } catch (error) {
+      console.log(error);
+      
+  }
+}

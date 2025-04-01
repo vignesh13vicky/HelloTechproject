@@ -7,6 +7,6 @@ router.post("/userAdd",contt.verify,cont.enquirySubmit)
 
 router.get("/userRead",cont.getUser)
 
-router.post("/userDel/:id",cont.userDel)
+router.post("/userDel/:id",contt.verify,cont.userDel)
 
 module.exports=router;

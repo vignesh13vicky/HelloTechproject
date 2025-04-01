@@ -4,12 +4,33 @@ import { FaBars, FaHome, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { AiFillProduct } from "react-icons/ai";
 import { SiGooglemessages } from "react-icons/si";
+import { Client } from '../Client'
 
 import "../SideBar/SideBar.css"
 
 const SideBar = () => {
     const [isOpen, setIsOpen] = useState(true);
     const navigate = useNavigate();
+
+const logout = async()=>{
+  // e.preventDefault();
+  // console.log(user);
+  try {
+    const addNewUser = await Client.post("/login/logout",{withCredentials:true});
+    console.log(addNewUser);
+    if(addNewUser.status === 200){
+      // alert("submitted successfully")
+navigate("/")
+
+
+    }
+  } catch (error) {
+    console.log(error);
+   
+    
+  }
+  
+}
 
   return (
   <>
@@ -51,7 +72,7 @@ const SideBar = () => {
         </li>
       </ul>
     <div className="logout">
-      <button className="btn btn-warning" onClick={() => navigate("/")}>
+      <button className="btn btn-warning" onClick={logout}>
         <FaSignOutAlt className="icon"/> logout
       </button>
     </div>

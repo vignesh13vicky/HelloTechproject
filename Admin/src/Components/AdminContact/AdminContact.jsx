@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { Client } from "../Client";
 import "../AdminContact/AdminContact.css";
-import { ToastContainer, toast } from 'react-toastify';
-
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AdminContact = () => {
   const [details, setDetails] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(7);
+  const navigate = useNavigate()
+  
 
   useEffect(() => {
     getUserData();
@@ -49,6 +51,19 @@ const AdminContact = () => {
                 
     } catch (error) {
       console.log(error);
+       if(error.status===401){
+        // toast.warning("Plaease login!",{
+        //   position:'top-center',
+        //   autoClose:3000,
+        //   hideProgressBar:false,
+        //   closeOnClick:true,
+        //   pauseOnHover:false,
+        //   draggable:true,
+        //   theme:"colored",
+        //           })         
+                       alert("Plaease login")
+              navigate("/")
+            }
     }
   };
 

@@ -3,12 +3,19 @@ import LoginAndSignupImage from '../LoginAndSignupImage/LoginAndSignupImage'
 import '../Login/Login.css'
 import { Client } from '../Client'
 import {useNavigate } from 'react-router-dom'
+import { FaEye,FaEyeSlash  } from "react-icons/fa";
+// import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+// import Cookies from "js-cookie";
+
 
 const Login = () => {
+
   const navigate = useNavigate();
 
   const initialData = {email:"",password:""}
   const [user, setUser] = useState(initialData)
+  // const [password,setPassword] = useState("")
+  const [visible,setVisible] = useState(false)
   
 
   const handleChange=(e)=>{
@@ -17,38 +24,57 @@ const Login = () => {
   }
 
 const submit = async(e)=>{
-  // e.preventDefault();
+  e.preventDefault();
   console.log(user);
   try {
-    const addNewUser = await Client.get("/adminlogin/adminloginget",user);
+    const addNewUser = await Client.post("/adminlogin/adminloginadmin",user,{withCredentials:true});
     console.log(addNewUser);
     if(addNewUser.status === 200){
       alert("submitted successfully")
-navigate("/admin/adminhome")
-      setUser(initialData);
       // verify();
-
+      setUser(initialData);
+      // Cookies.set("jwttoken", addNewUser.data.token);
+      // navigate("/admin/adminhome")
+          const role = user.role;
+      if (!role) {
+                navigate("/admin/adminhome");
+        
+                // window.open("http://localhost:3001", "_blank");
+              } else {
+                window.open("http://localhost:3000", "_blank");
+              }
     }
   } catch (error) {
     console.log(error);
-   
+   alert(response.data.message)
     
   }
   
 }
 
-// const getLogin = async () => {
-//     try {
-//       const response = await Client.get("/userRead");
-//       console.log("Fetched Users:", response.data.users);
+// const verify = async () => {
+//   try {
+//     const verifyToken = await Client.get("/login/loginverify",{withCredentials:true});
+//     console.log(verifyToken);
 
-//       if (response.status === 200) {
-//         setDetails(response.data.users);
+//     const role = verifyToken.data.role;
+//     console.log(role);
+
+//     if (verifyToken.status === 200) {
+//       if (role) {
+//         navigate("/admin/adminhome");
+
+//         // window.open("http://localhost:3001", "_blank");
+//       } else {
+//         window.open("http://localhost:3000", "_blank");
 //       }
-//     } catch (error) {
-//       console.error("Error fetching data:", error.response?.data || error.message);
 //     }
-//   };
+//   } catch (error) {
+//     console.log(error);
+//     alert(error.response.message)
+//   }
+// };
+
 
 
   return (
@@ -79,14 +105,24 @@ navigate("/admin/adminhome")
             <label className="form-label">
               Password
             </label>
+            <div className="position-relative">
             <input
-              type="password"
+              // type="password"
+              type={visible ? "text":"password"}
               placeholder='Enter Your Password'
               className="form-control"
               name="password"
               value={user.password}
               onChange={handleChange}
             />
+          <span
+                className="position-absolute end-0 top-50 translate-middle-y me-3"
+                style={{ cursor: "pointer" }}
+                onClick={() => setVisible(!visible)}
+              >
+                {visible ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
           </div>
 <div className="submit_button-whole"> <button type="submit" className="submit_button" 
           onClick={submit}

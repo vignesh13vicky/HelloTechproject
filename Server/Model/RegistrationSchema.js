@@ -6,7 +6,7 @@ const registration = new mongoose.Schema({
   email: { type: String, required: true },
   mobile: { type: String, required: true },
   date: { type: String, required: true },
-});
+},{ timestamps: true });
 
 const messageSchema= mongoose.model("Contact Message",registration)
 

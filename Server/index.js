@@ -13,6 +13,7 @@ const allowedUrl = {
   origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
   method: ["POST","GET"], 
   credentials: true,};
+  
 app.use(cors(allowedUrl));
 
 const userRoute = require("./Route/RegistrationRoutes");
@@ -26,8 +27,6 @@ app.use("/signup", signupRoute);
 
 const adminLoginRoute = require("./Route/AdminLoginRoutes");
 app.use('/adminlogin', adminLoginRoute)
-
-
 
 const servicesTitleRoute = require ("./Route/AdminServicesTitlecardRoutes");
 app.use('/servicestitle', servicesTitleRoute)

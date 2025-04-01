@@ -46,7 +46,7 @@ const submit = async(e)=>{
     }
   } catch (error) {
     console.log(error);
-   alert(response.data.message)
+  //  alert(response.data.message)
     
   }
   

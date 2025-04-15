@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 const allowedUrl = {
-  // origin: ["http://localhost:3000","http://localhost:3001"],
-  origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
+  origin: ["http://localhost:3000","http://localhost:3001","https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
+  // origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
   method: ["POST","GET"], 
   credentials: true,};
   

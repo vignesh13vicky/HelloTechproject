@@ -96,19 +96,19 @@ const FooterTopContact = () => {
     </div>
     <div>
       <div>
-        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />{" "}
+        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />
         <Link to="/">Home</Link>
       </div>
       <div>
-        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />{" "}
+        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />
         <Link to="/">About</Link>
       </div>
       <div>
-        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />{" "}
+        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />
         <Link to="/">Services</Link>
       </div>
       <div>
-        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />{" "}
+        <FaAngleRight className='Icons' style={{ color: "#ffa920" }} />
         <Link to="/">Contact</Link>
       </div>
     </div>
@@ -277,28 +277,28 @@ const FooterTopContact = () => {
                       <FaAngleRight
                         className="Icons"
                         style={{ color: "#ffa920" }}
-                      />{" "}
+                      />
                       <Link to="/">Home</Link>
                     </div>
                     <div>
                       <FaAngleRight
                         className="Icons"
                         style={{ color: "#ffa920" }}
-                      />{" "}
+                      />
                       <Link to="/about">About</Link>
                     </div>
                     <div>
                       <FaAngleRight
                         className="Icons"
                         style={{ color: "#ffa920" }}
-                      />{" "}
+                      />
                       <Link to="/services">Services</Link>
                     </div>
                     <div>
                       <FaAngleRight
                         className="Icons"
                         style={{ color: "#ffa920" }}
-                      />{" "}
+                      />
                       <Link to="/contact">Contact</Link>
                     </div>
                   </div>
@@ -317,10 +317,9 @@ const FooterTopContact = () => {
                     <Link to=" ">
                       <div className="contact_icon">
                         <span>
-                          {" "}
-                          <FaLocationDot className="Icons" />
+                          <FaLocationDot className="Icons_contact" />
                         </span>
-                        <div className="">
+                        <div className="contact_item">
                           <span className="">
                             100/4,Vayalcheri, Thiruppuvanam, Sivagangai -
                             630611.
@@ -332,16 +331,19 @@ const FooterTopContact = () => {
                   <div>
                     <Link to="tel:+918072503704">
                       <div className="contact_icon">
-                        <FaPhoneAlt className="Icons" />
-                        <div className="contact_text">+91 80725-03704</div>
+                      <span>  <FaPhoneAlt className="Icons_contact" /></span>
+                        <div className="contact_text">
+                          <span className="">+91 80725-03704 </span>
+                        </div>
                       </div>
                     </Link>
                   </div>
                   <div>
                     <Link to="https://wa.me/8072503704" target="_blank">
                       <div className="contact_icon">
-                        <FaWhatsapp className="Icons" />
-                        <div className="contact_text"> +91 80725-03704</div>
+                      <span> <FaWhatsapp className="Icons_contact" /></span>
+                        <div className="contact_text">                           <span className="">
+                        +91 80725-03704</span></div>
                       </div>
                     </Link>
                   </div>
@@ -351,8 +353,10 @@ const FooterTopContact = () => {
                       target="_blank"
                     >
                       <div className="contact_icon">
-                        <FaEnvelope className="Icons" />
-                        <div className="contact_text">vigneshvicky13052003@gmail.com</div>
+                      <span>  <FaEnvelope className="Icons_contact" /></span>
+                        <div className="contact_text">
+                        <span>    vigneshvicky13052003@gmail.com</span>
+                        </div>
                       </div>
                     </Link>
                   </div>
@@ -362,8 +366,8 @@ const FooterTopContact = () => {
                       target="_blank"
                     >
                       <div className="contact_icon">
-                        <FaLinkedin className="Icons" />{" "}
-                        <div className="contact_text">Vignesh.M</div>
+                      <span> <FaLinkedin className="Icons_contact" /></span>
+                        <div className="contact_text"><span>Vignesh.M</span></div>
                       </div>
                     </Link>
                   </div>

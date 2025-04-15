@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Get URL params & navigation
 import { Client } from "../../Client";
+import Navbar from "../../Navbar/Navbar"
+import ServicesTop from "../ServicesTop/ServicesTop";
+import Carousel_About from "../../Pages/Carousel_About/Carousel_About";
+import Footer from "../../Footer/Footer";
 // import { FaIndianRupeeSign } from "react-icons/fa6";
 
 const ServicesReadMore = () => {
@@ -33,7 +37,12 @@ const ServicesReadMore = () => {
   }, [id]);
 
   return (
+    <>
+    <ServicesTop/>
+    <Navbar/>
+    <Carousel_About/>
     <div className="container mt-4">
+      
       {loading ? (
         <div className="text-center">
           <div className="spinner-border text-primary" role="status">
@@ -47,7 +56,7 @@ const ServicesReadMore = () => {
               <img
                 src={details.image.url}
                 alt=""
-                className=" rounded shadow"
+                className="rounded shadow"
                 style={{ maxHeight: "450px", objectFit: "cover" }}
               />
             ) : (
@@ -75,6 +84,8 @@ const ServicesReadMore = () => {
         <div className="text-center text-danger">details not found.</div>
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 

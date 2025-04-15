@@ -57,7 +57,7 @@ const Signup = () => {
         setUser(initialData);
         // Cookies.set("jwttoken", addNewUser.data.token);
         // Delay navigation until toast is visible
-        setTimeout(() => navigate("/otp", { state: { user } }), 2000);
+        setTimeout(() => navigate("/otp", { state: { user } }), 1000);
       }
 
       console.log(addNewUser);
@@ -86,9 +86,9 @@ const Signup = () => {
         draggable: true,
         theme: "colored",
       });
-      if (error.response?.status === 400) {
-        setTimeout(() => navigate("/login"), 2000);
-      }
+      // if (error.response?.status === 400) {
+      //   setTimeout(() => navigate("/login"), 2000);
+      // }
 
       // alert(error.response.data.message);
     }

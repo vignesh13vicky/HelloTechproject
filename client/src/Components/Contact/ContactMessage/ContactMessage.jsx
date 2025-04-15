@@ -52,13 +52,17 @@ const navigate = useNavigate()
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
-          theme: "colored",
+          theme: "colored"
         });
       }
     } catch (error) {
       if(error.status===401){
         toast.error("Plaease login")
         navigate("/login")
+      }
+      if(error.status===403){
+        toast.error(error.response.data.message)
+        // navigate("/login")
       }
       console.log(error);
     }

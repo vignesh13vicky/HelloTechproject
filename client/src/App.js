@@ -27,7 +27,7 @@ function App() {
       <Route path="/services" element={<Services />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/readmore/:id" element={<ServicesReadMore />} />
-      <Route path='/*'element={<Error/>} />
+      <Route path='*'element={<Error/>} />
       
       {/* <Route path="/adminhome" element={() => { window.location.href = "http://localhost:3001"; return null; }} /> */}
       </Routes>

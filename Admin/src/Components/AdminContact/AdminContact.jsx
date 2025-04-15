@@ -48,6 +48,7 @@ const AdminContact = () => {
         draggable:true,
         theme:"colored",
                 })
+      verify()
                 
     } catch (error) {
       console.log(error);
@@ -66,6 +67,27 @@ const AdminContact = () => {
             }
     }
   };
+
+  const verify = async () => {
+  try {
+    const verifyToken = await Client.get("/login/loginverify");
+    console.log(verifyToken);
+
+    const role = verifyToken.data.role;
+    console.log(role);
+
+    if (verifyToken.status === 200) {
+      if (role) {
+        navigate("/admin/adminhome");
+
+        // window.open("http://localhost:3001", "_blank");
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    alert(error.response.message)
+  }
+};
 
   // Pagination Logic
   const indexOfLastPost = currentPage * postPerPage;

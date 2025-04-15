@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
       console.log(checkUser);
   
       if (!checkUser) {
-        res.status(401).json({
+        return res.status(401).json({
           message: "Invalid User",
         });
       }
@@ -36,17 +36,17 @@ exports.login = async (req, res) => {
         res
           .status(200)
           .cookie("jwttoken", token, {
-            httpOnly: true,
+            httpOnly: false,
             sameSite: "none",
             secure: true,
           })
           .json({ message: "success",token:token });
       }
     } catch (error) {
-        // console.log("token not generated");
-        
-    }
-  };
+      console.log(error);
+      
+  }
+}
 
 
   // exports.verify = async (req, res) => {
@@ -160,7 +160,7 @@ exports.verify = async (req, res,next) => {
 
     } catch (error) {
         console.error("JWT Verification Error:", error);
-        return res.status(403).json({ message: "Invalid or expired token" });
+        return res.status(403).json({ message: "Plaease login to Continue.." });
     }
 };
 

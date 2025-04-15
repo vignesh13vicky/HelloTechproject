@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import LoginAndSignupImage from '../LoginAndSignupImage/LoginAndSignupImage'
 import '../Login/Login.css'
 import { Client } from '../Client'
 import {useNavigate } from 'react-router-dom'
 import { FaEye,FaEyeSlash  } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
 // import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 
-const Login = () => {
+const Login = ({ setToken }) => {
 
   const navigate = useNavigate();
 
@@ -16,7 +17,6 @@ const Login = () => {
   const [user, setUser] = useState(initialData)
   // const [password,setPassword] = useState("")
   const [visible,setVisible] = useState(false)
-  
 
   const handleChange=(e)=>{
     const {name,value}=e.target;
@@ -30,10 +30,21 @@ const submit = async(e)=>{
     const addNewUser = await Client.post("/adminlogin/adminloginadmin",user,{withCredentials:true});
     console.log(addNewUser);
     if(addNewUser.status === 200){
-      alert("submitted successfully")
+      toast.success("submitted successfully!",{
+        position:'top-center',
+        autoClose:3000,
+        hideProgressBar:false,
+        closeOnClick:true,
+        pauseOnHover:false,
+        draggable:true,
+        theme:"colored",
+                })
+      // alert("submitted successfully")
       // verify();
+      const token = Cookies.get("jwttoken"); // or response.data.token if sent directly
+      console.log("Token:", token);
+      setToken(token);
       setUser(initialData);
-      // Cookies.set("jwttoken", addNewUser.data.token);
       // navigate("/admin/adminhome")
           const role = user.role;
       if (!role) {
@@ -46,7 +57,16 @@ const submit = async(e)=>{
     }
   } catch (error) {
     console.log(error);
-  //  alert(response.data.message)
+  //  alert(error.response.data.message)
+   toast.warning(error.response.data.message,{
+          position:'top-center',
+          autoClose:3000,
+          hideProgressBar:false,
+          closeOnClick:true,
+          pauseOnHover:false,
+          draggable:true,
+          theme:"colored",
+                  })
     
   }
   
@@ -81,6 +101,7 @@ const submit = async(e)=>{
    <>
    <LoginAndSignupImage/>
    <div className="container">
+    <ToastContainer/>
     <div className='contain_login d-flex justify-content-center align-items-center'>
        
       <div className="whole_login 

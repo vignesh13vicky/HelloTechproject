@@ -24,11 +24,12 @@ exports.login = async (req, res) => {
                 message: "Password must be at least 6 characters long, include UPPERCASE, lowercase, number, and special_ch@r@cter,"
             });
         }
+
         const checkUser = await SignupRegistration.findOne({ email });
         console.log(checkUser);
 
         if (!checkUser) {
-            res.status(401).json({
+           return res.status(401).json({
                 message: "Invalid User",
             });
         }
@@ -37,14 +38,19 @@ exports.login = async (req, res) => {
         console.log(checkPassWord);
 
         if (!checkPassWord) {
-            res.status(401).json({
+            return res.status(401).json({
                 message: "Invalid Password",
             });
         }
         const role = checkUser.admin;
         console.log("User Role:", role);
         console.log("User Details:", checkUser);
-
+        
+        if (!checkUser.admin) {
+            return res.status(403).json({
+                message: "Not an authorized person",
+            });
+        }
         // res.status(200).json({
         //     message: "Success",
         //     id: checkUser._id,
@@ -59,11 +65,12 @@ exports.login = async (req, res) => {
             res
                 .status(200)
                 .cookie("jwttoken", token, {
-                    httpOnly: true,
+                    httpOnly: false,
                     sameSite: "none",
                     secure: true,
                 })
-                .json({ message: "success", role});
+                .json({ message: "success", role,role: checkUser.admin ? "admin" : "user",
+                    userId: checkUser._id});
         }
     } catch (error) {
         // console.log("token not generated");

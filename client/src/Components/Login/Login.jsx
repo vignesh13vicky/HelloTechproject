@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { React, useState, useEffect } from "react";
 import "../Login/Login.css";
 import { ToastContainer, toast } from "react-toastify";
 import LoginAndSignupImage from "../LoginAndSignupImage/LoginAndSignupImage";
 import { Client } from "../Client";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -12,12 +12,18 @@ const Login = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(initialData);
   const [visible, setVisible] = useState(false);
-  // const [token, setToken] = useState("");
+  const [token, setToken] = useState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    const tokens = Cookies.get("jwttoken");
+    console.log(tokens);
+    setToken(tokens);
+  },[]);
 
   //  const tokens = Cookies.get("jwttoken");
   //     console.log(tokens);
@@ -27,9 +33,7 @@ const Login = () => {
     e.preventDefault();
     console.log(user);
     try {
-      const addNewUser = await Client.post("/login/loginuser", user, {
-        withCredentials: true,
-      });
+      const addNewUser = await Client.post("/login/loginuser", user);
       console.log(addNewUser);
       if (addNewUser.status === 200) {
         toast.success("submitted successfully!", {
@@ -45,15 +49,18 @@ const Login = () => {
 
         setUser(initialData);
         // Cookies.set("jwttoken", addNewUser.data.token);
+        // const token = Cookies.get("jwttoken");
+        // console.log(token);
         navigate("/");
         // verify();
-      } else {
+      }
+      if (addNewUser.status === 401) {
         alert("Unexpected response from server.");
-        navigate("/signup");
       }
     } catch (error) {
       console.log(error);
       alert(error.response.data.message);
+      navigate("/signup");
 
       // if (error.response) {
       //   alert(error.response.data?.message || "Login failed!");

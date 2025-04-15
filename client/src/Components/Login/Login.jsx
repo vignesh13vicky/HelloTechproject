@@ -56,11 +56,12 @@ const Login = () => {
       }
       if (addNewUser.status === 401) {
         alert("Unexpected response from server.");
+        navigate("/signup");
+
       }
     } catch (error) {
       console.log(error);
       alert(error.response.data.message);
-      navigate("/signup");
 
       // if (error.response) {
       //   alert(error.response.data?.message || "Login failed!");

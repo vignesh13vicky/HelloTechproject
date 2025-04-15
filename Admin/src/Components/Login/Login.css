@@ -20,8 +20,8 @@
     margin: 10px;
 }
 .whole_login input {
-    background-color: #ffa920; 
-    color: #333; 
+    /* background-color: #ffa920;  */
+    color: #333 !important; 
     border: 2px solid #ffa920; 
     padding: 10px;
     border-radius: 5px;

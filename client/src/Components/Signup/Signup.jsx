@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LoginAndSignupImage from "../LoginAndSignupImage/LoginAndSignupImage";
 import "../Signup/Signup.css";
 import { Client } from "../Client";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -149,11 +149,13 @@ const Signup = () => {
               />
               <span
                 className="position-absolute end-0 top-50 translate-middle-y me-3"
+                // className="position-absolute top-50 end-0 translate-middle-y me-3 text-black"
                 style={{ cursor: "pointer" }}
                 onClick={() => setVisible(!visible)}
               >
                 {visible ? <FaEye /> : <FaEyeSlash />}
               </span>
+              
             </div>
           </div>
 
@@ -174,6 +176,18 @@ const Signup = () => {
           <button type="button" className="submit_button" onClick={submit}>
             Submit
           </button>
+          <div className="">
+            <p className="text-center mt-3 mb-0 small text-light">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                style={{ color: "#ffa920", textDecoration: "underline" }}
+              >
+                Login here
+              </Link>
+            </p>
+          </div>
+
           {/* </form> */}
         </div>
       </div>

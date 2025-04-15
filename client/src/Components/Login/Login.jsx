@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import LoginAndSignupImage from "../LoginAndSignupImage/LoginAndSignupImage";
 import { Client } from "../Client";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
@@ -23,7 +23,7 @@ const Login = () => {
     const tokens = Cookies.get("jwttoken");
     console.log(tokens);
     setToken(tokens);
-  },[]);
+  }, []);
 
   //  const tokens = Cookies.get("jwttoken");
   //     console.log(tokens);
@@ -56,12 +56,22 @@ const Login = () => {
       }
       if (addNewUser.status === 401) {
         alert("Unexpected response from server.");
-        navigate("/signup");
-
+        // navigate("/signup");
       }
     } catch (error) {
       console.log(error);
-      alert(error.response.data.message);
+   toast.warning(error.response.data.message,{
+          position:'top-center',
+          autoClose:3000,
+          hideProgressBar:false,
+          closeOnClick:true,
+          pauseOnHover:false,
+          draggable:true,
+          theme:"colored",
+                  })      // if (error.status === 401) {
+      //   alert("Unexpected response from server.");
+      //   navigate("/signup");
+      // }
 
       // if (error.response) {
       //   alert(error.response.data?.message || "Login failed!");
@@ -170,7 +180,6 @@ const Login = () => {
                 </div>
               </div>
               <div className="submit_button-whole">
-                {" "}
                 <button
                   type="submit"
                   className="submit_button"
@@ -178,6 +187,17 @@ const Login = () => {
                 >
                   Submit
                 </button>
+              </div>
+              <div className="">
+                <p className="text-center mt-3 mb-0 small text-light">
+                  Don't have an account?
+                  <Link
+                    to="/signup"
+                    style={{ color: "#ffa920", textDecoration: "underline" }}
+                  >
+                    Sign up
+                  </Link>
+                </p>
               </div>
             </form>
           </div>

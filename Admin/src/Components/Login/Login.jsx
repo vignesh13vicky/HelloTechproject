@@ -110,7 +110,7 @@ const submit = async(e)=>{
         {/* <form> */}
           <h3 className="mb-3 text-center"style={{fontWeight:"bolder"}}>Login page</h3>
           <div className="mb-3 ">
-            <label  className="form-label">
+            <label  className="form-label text-white">
               Email address
             </label>
             <input
@@ -123,8 +123,8 @@ const submit = async(e)=>{
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">
-              Password
+          <label  className="form-label text-white">
+          Password
             </label>
             <div className="position-relative">
             <input

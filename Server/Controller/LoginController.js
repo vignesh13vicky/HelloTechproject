@@ -22,7 +22,7 @@ exports.login = async (req, res) => {
       console.log(checkPassWord);
   
       if (!checkPassWord) {
-        res.status(401).json({
+       return res.status(401).json({
           message: "Invalid Password",
         });
       }
@@ -160,7 +160,7 @@ exports.verify = async (req, res,next) => {
 
     } catch (error) {
         console.error("JWT Verification Error:", error);
-        return res.status(403).json({ message: "Plaease login to Continue.." });
+        return res.status(403).json({ message: "Plaease logout to Continue.." });
     }
 };
 

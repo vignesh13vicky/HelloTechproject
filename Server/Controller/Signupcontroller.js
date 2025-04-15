@@ -61,10 +61,10 @@ exports.newSignupRegistration = async (req,res)=>{
     if (existingUserEmail) {
       return res.status(400).json({ message: "Email is already in registered" });
     }
-    const existingUserName = await SignupRegistration.findOne({ name });
-    if (existingUserName) {
-      return res.status(400).json({ message: "UserName is already in registered" });
-    }
+    // const existingUserName = await SignupRegistration.findOne({ name });
+    // if (existingUserName) {
+    //   return res.status(400).json({ message: "UserName is already in registered" });
+    // }
     else {
       const otp = Math.floor(100000 + Math.random() * 900000);
 

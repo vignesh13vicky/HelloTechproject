@@ -193,12 +193,12 @@ exports.verify = async (req, res,next) => {
 exports.logout = async(req,res)=>{
   try {
       res.status(200)
-      // .cookie("jwttoken","",{
-      //     httpOnly:true,
-      //     sameSite:"none",
-      //     secure:true,
-      //     expires:new Date(0)
-      // })
+      .cookie("jwttoken","",{
+          httpOnly:true,
+          sameSite:"none",
+          secure:true,
+          expires:new Date(0)
+      })
       localStorage.removeItem("jwttoken")
       .json({message:"success"})
   } catch (error) {

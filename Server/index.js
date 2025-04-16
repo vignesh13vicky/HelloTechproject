@@ -8,13 +8,17 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedUrl = {
+// const allowedUrl = {
+//   origin: ["http://localhost:3000","http://localhost:3001","https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
+//   // origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
+//   method: ["POST","GET"], 
+//   credentials: true,};
+  app.use(cors({
   origin: ["http://localhost:3000","http://localhost:3001","https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
-  // origin: ["https://hello-techproject-client.vercel.app","https://hello-techproject-admin.vercel.app"],
-  method: ["POST","GET"], 
-  credentials: true,};
-  
-app.use(cors(allowedUrl));
+methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
+  }));
+// app.use(cors(allowedUrl));
 
 const userRoute = require("./Route/RegistrationRoutes");
 app.use("/user", userRoute);

@@ -134,11 +134,15 @@ exports.SignupCheck = async (req,res)=>{
     })
     console.log("sigin",token);
     if (token) {
-        res.status(200).cookie("jwttoken",token,{
+        res.status(200)
+        .cookie("jwttoken",token,{
             httpOnly:false,
             sameSite:"none",
             secure:true,
         })
+        // const token = addNewUser.data.token;
+        // localStorage.setItem("jwttoken",token)
+        // localStorage.setItem("jwttoken")
         .json({message:"success",token:token })
     }
     } catch (error) {
@@ -183,12 +187,14 @@ exports.SignupCheck = async (req,res)=>{
 
 exports.signOut = async(req,res)=>{
     try {
-        res.status(200).cookie("jwttoken","",{
-            httpOnly:true,
-            sameSite:"none",
-            secure:true,
-            expires:new Date(0)
-        })
+        res.status(200)
+        // .cookie("jwttoken","",{
+        //     httpOnly:true,
+        //     sameSite:"none",
+        //     secure:true,
+        //     expires:new Date(0)
+        // })
+        // localStorage.removeItem("jwttoken")
         .json({message:"success"})
     } catch (error) {
         console.log(error);

@@ -27,7 +27,7 @@ const navigate = useNavigate()
     console.log(user);
 
     try {
-      const addNewUser = await Client.post("/user/userAdd", user,{withCredentials:true});
+      const addNewUser = await Client.post("/user/userAdd", user);
       console.log(addNewUser);
 
       if (addNewUser.status === 200) {

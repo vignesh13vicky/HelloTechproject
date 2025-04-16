@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
+import  React ,{useState, useEffect } from "react";
 import "../Login/Login.css";
 import { ToastContainer, toast } from "react-toastify";
 import LoginAndSignupImage from "../LoginAndSignupImage/LoginAndSignupImage";
 import { Client } from "../Client";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const tokens = Cookies.get("jwttoken");
+    const tokens = localStorage.getItem("jwttoken");
     console.log(tokens);
     setToken(tokens);
   }, []);
@@ -36,6 +36,8 @@ const Login = () => {
       const addNewUser = await Client.post("/login/loginuser", user);
       console.log(addNewUser);
       if (addNewUser.status === 200) {
+        const token = addNewUser.data.token;
+        localStorage.setItem("jwttoken",token)
         toast.success("submitted successfully!", {
           position: "top-center",
           autoClose: 3000,
@@ -46,7 +48,7 @@ const Login = () => {
           theme: "colored",
         });
         // alert("submitted successfully")
-
+setToken(token)
         setUser(initialData);
         // Cookies.set("jwttoken", addNewUser.data.token);
         // const token = Cookies.get("jwttoken");
@@ -60,21 +62,21 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-   toast.warning(error.response.data.message,{
-          position:'top-center',
-          autoClose:3000,
-          hideProgressBar:false,
-          closeOnClick:true,
-          pauseOnHover:false,
-          draggable:true,
-          theme:"colored",
-                  })      // if (error.status === 401) {
+  //  toast.warning(error.response.message,{
+  //         position:'top-center',
+  //         autoClose:3000,
+  //         hideProgressBar:false,
+  //         closeOnClick:true,
+  //         pauseOnHover:false,
+  //         draggable:true,
+  //         theme:"colored",
+  //                 })      // if (error.status === 401) {
       //   alert("Unexpected response from server.");
       //   navigate("/signup");
       // }
 
       // if (error.response) {
-      //   alert(error.response.data?.message || "Login failed!");
+        alert(error.response.data?.message || "Login failed!");
       // } else {
       //   alert("Server error or no response received.");
       // }

@@ -91,11 +91,21 @@ export const Navbar = () => {
   useEffect(() => {
     console.log("hiiiiiiiiiiiiiiii");
 
-    const tokens = Cookies.get("jwttoken");
+    const tokens = localStorage.getItem("jwttoken");
     // const tokens = document.cookie;
     console.log(tokens);
     setToken(tokens);
   }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const jwtToken = localStorage.getItem("jwttoken");
+      setToken(jwtToken || null);
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
 
   console.log(token);
 
@@ -109,7 +119,8 @@ export const Navbar = () => {
       console.log(addNewUser);
       if (addNewUser.status === 200) {
         // alert("submitted successfully")
-        Cookies.remove("jwttoken");
+        // Cookies.remove("jwttoken");
+        localStorage.removeItem("jwttoken");
         setToken(null);
         navigate("/");
       }

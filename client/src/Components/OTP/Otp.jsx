@@ -57,7 +57,9 @@ const Otp = () => {
         //     Cookies.set("jwttoken", verifyOpUser.data.token);
         // setToken(verifyOpUser.data.token);
         // const token = Cookies.get("jwttoken");
-        // console.log(token);
+        const token = verifyOpUser.data.token;
+        localStorage.setItem("jwttoken",token)
+        console.log(token);
         navigate("/");
       }
     } catch (err) {

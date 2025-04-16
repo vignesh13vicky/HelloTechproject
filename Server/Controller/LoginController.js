@@ -40,6 +40,8 @@ exports.login = async (req, res) => {
             sameSite: "none",
             secure: true,
           })
+          // const token = addNewUser.data.token;
+        // localStorage.setItem("jwttoken",token)
           .json({ message: "success",token:token });
       }
     } catch (error) {
@@ -144,34 +146,60 @@ exports.verify = async (req, res,next) => {
         }
 
         // Check if user exists before accessing properties
-        // if (!checkUser) {
-        //     return res.status(401).json({ message: "Unauthorized user" });
-        // }
+        if (!checkUser) {
+            return res.status(401).json({ message: "Unauthorized user" });
+        }
 
-        // const role = checkUser.admin;
-        // console.log("User Role:", role);
-        // console.log("User Details:", checkUser);
+        const role = checkUser.admin;
+        console.log("User Role:", role);
+        console.log("User Details:", checkUser);
 
-        // res.status(200).json({
-        //     message: "Success",
-        //     id: checkUser._id,
-        //     role
-        // });
+        res.status(200).json({
+            message: "Success",
+            id: checkUser._id,
+            role
+        });
 
     } catch (error) {
         console.error("JWT Verification Error:", error);
         return res.status(403).json({ message: "Plaease logout to Continue.." });
     }
-};
+
+    // try {
+    //   const authHeader = req.headers.authorization;
+  
+    //   if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    //     return res.status(401).json({ message: "No token provided" });
+    //   }
+  
+    //   const token = authHeader.split(" ")[1];
+  
+    //   const decoded = jwt.verify(token, secretKey);
+    //   console.log("Verified JWT:", decoded);
+  
+    //   const user = await SignupRegistration.findById(id);
+    //   if (!user) {
+    //     return res.status(401).json({ message: "User not found" });
+    //   }
+  
+    //   req.user = user; // Optional: pass user to next routes
+    //   next();
+    // } catch (error) {
+    //   console.error("Token Verification Failed:", error.message);
+    //   res.status(403).json({ message: "Invalid or expired token" });
+    // }
+  };
 
 exports.logout = async(req,res)=>{
   try {
-      res.status(200).cookie("jwttoken","",{
-          httpOnly:true,
-          sameSite:"none",
-          secure:true,
-          expires:new Date(0)
-      })
+      res.status(200)
+      // .cookie("jwttoken","",{
+      //     httpOnly:true,
+      //     sameSite:"none",
+      //     secure:true,
+      //     expires:new Date(0)
+      // })
+      localStorage.removeItem("jwttoken")
       .json({message:"success"})
   } catch (error) {
       console.log(error);
